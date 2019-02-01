@@ -1,5 +1,18 @@
 # General Info
 * The Informatica power center clients works on 32 bits, when configuring an ODBC connnection from the clients to a certain DATABASE it's neccesary to use an ODBC 32 bits driver. It's possible to follow the installation (Domain Databases and Repository databases) on a 64 bit database server, but when adding a source from the Informatica Designer, you should use a 32 bits driver. [Info about the 32 bits ODBC driver](https://network.informatica.com/thread/85144 "ODBC driver problem")
+* Contrasenas: 
+* oracle: masteroracledatabase
+    * IPC services (server): Master2019?
+    * Domain user name: Administrator
+    * Pass: Administrator
+    * UsuarioIPCCreado: 
+    * PssUsuarioIPCExterno: usuario
+* Mysql: 
+    * Puerto: 3306
+    * X protocol port: 33060
+    * Pass: mastermysqldatabase
+    * Dba user: Administrator
+    * Pass Dba user: Administrator
 
 # Basic Configuration
 * Some basic information about the basics
@@ -47,9 +60,21 @@ From the first time, no one ODBC connection is configured, in order to configure
     2. Right clic and select run as administrator.
     3. Add the new sytem dns (**Oracle in XE for the Informatica Installation**)
 
+#### Solving the ODBC 32 bits vs ODBC 64 bits error
+* [Problem with ODBC 32/64 bits drivers](https://syntaxdrops.wordpress.com/2013/06/18/installing-and-configuring-mysql-32-bit-odbc-driver-on-a-64-bit-operating-system/ "ODBC solution")
+* Explanation: 
+    * What happens is that you have a 64 bit operating system, and you need to install an ODBC driver that would work with a 32 bit application.
+    * If you install a 64 bit ODBC driver, **it will be listed** and configurable in “ODBC Data Source Administrator” (Start\Control Panel\All Control Panel Items\Administrative Tools\Data Source (ODBC)), **but it will not be able to work with 32 bit application.**
+    * if you try to install the 32 bit driver, the system will not recognise it, and it *will not appear* in your default Data Sources (ODBC) **inside the control panel**, so you will not be able to configure it and connect to MySQL.
+    * In order to see the 32 bit ODBC driver, it should be added by **odbcad32.exe** program mentioned earlier. 
+
+#### Solving the OBDC 32/64 Bits, PATH error
+* [Info abouth the PATH on windows about the 32/64 bits ODBC drivers](https://network.informatica.com/thread/52202 "worth read")
+
 ## Add a Relational connection from the Workflow Designer
 1. Open the Informatica Workflow Designer
 2. Select the type of connection (where it's the source and target tables)
 3. clic on New
 4. Give a Name and complete the user and password requirements.
 5. In connection write the **SERVICE_NAME** as the tnsnames.ora file, **XE** in this case. 
+

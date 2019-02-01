@@ -69,7 +69,26 @@ From the first time, no one ODBC connection is configured, in order to configure
     * In order to see the 32 bit ODBC driver, it should be added by **odbcad32.exe** program mentioned earlier. 
 
 #### Solving the OBDC 32/64 Bits, PATH error
-* [Info abouth the PATH on windows about the 32/64 bits ODBC drivers](https://network.informatica.com/thread/52202 "worth read")
+* [Info abouth the PATH on windows about the 32/64 bits ODBC drivers](https://network.informatica.com/thread/52202 "worth read. trust me this one")
+
+## Configuring and ODBC connection for a MySQL server 
+* By defaut the windows variable PATH, which you cand find as follows ([on windows 7](https://www.computerhope.com/issues/ch000549.htm)):
+    1. From the desktop, right-click the Computer icon and select Properties. 
+    2. Click the Advanced System Settings link in the left column.
+    3. In the System Properties window, click on the Advanced tab, then click the Environment Variables button near the bottom of that tab.
+    4. In the Environment Variables window (pictured below), highlight the Path variable in the "System variables" section and click the Edit button. Add or modify the path lines with the paths you want the computer to access. Each different directory is separated with a semicolon
+* So by default the Variable **PATH¨** It's configured to **READ** first the path: 
+    1.  C:\Windows\System32, in which is **stored** the  **odbcad32.exe** program for the [**64 bits** System DNS connections(https://kb.informatica.com/howto/6/Pages/2/157292.aspx "ODBC System DNS")], in other words, everytime you hit the Designer - Source Analyzer - Import from Database - ... - ODBC data source Administrator - System DNS, the **odbcad32.exe** for 64 bits is launched. But as you could remember, the Informatica Power Center Clientes are build under a **32 Bits** architecture, therefore in order to **connect** to a MySQL server with an **32 bits** ODBC driver, the System DNS connection should be declared within the **odbcad32.exe** for **32 bits**
+    2. After reading the *C:\Windows\System32* path, the **PATH** reads the *C:\Windows\SysWOW64* path, which stores the **odbcad32.exe** progam for **32 bits** ODBC connection. 
+    3. You should change the order of the **PATH** path, to read first the:  *C:\Windows\SysWOW64\odbcad32.exe* ODBC program and then *C:\Windows\System32\odbcad32.exe* ODBC program
+* Being adjusted the order *PATH*, you need to install the 32 Bits ODBC driver on both the Client and Server side, from the [Mysql connector page (https://dev.mysql.com/downloads/connector/odbc/) "Mysql Connectors"] downloading the **32 BITS** and MSI installer. 
+* Installed the 32 Bits Mysql ODBC Driver, the Informatica Power Center will ask for a modification for the *C:\Informatica\9.6.1\clients\PowerCenterClient\client\bin\powrmart.ini* file, in which you should add the following lines below the *[ODBCDLL]* section: 
+    * [ODBCDLL]
+    
+    MySQL=PMODBC.DLL
+
+* Once configured the powrmart.ini file and installed the 32 bits MySQL drivers, it's neccesary to add the new *System DNS data sources* whithin the ODBC Data Source Administrator Program (*C:\Windows\SysWOW64\odbcad32.exe*). 
+* Doing the steps mentioned before now we are able to stablish a 32 bits ODBC connection between the Informatica Power Center clients and the MySQL server. 
 
 ## Add a Relational connection from the Workflow Designer
 1. Open the Informatica Workflow Designer

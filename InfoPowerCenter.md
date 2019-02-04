@@ -99,8 +99,8 @@ From the first time, no one ODBC connection is configured, in order to configure
 * When using the **Workflow** application in order to run a SQL statement inside a Session(Mapping) the workflow application **despite of** being a 32 Bits application, connects first to the Informatica Power Center Server which is a **64 Bits application**; the **IPC server it's the one who actually executes a SQL statement.** In other words, when running a Workflow the Workflow application executes the following steps:
     * Workflow -> Informatica Power Center Server -> **64 Bits** ODBC connection -> Database Server
 
-## Connection considerations
-* In order to connect the Designer to a Database Server you need to configure the System DNS connections inside the C:\Windows\SysWOW64\odbcad32.exe* 32 Bits ODBC program. 
+## Connection considerations for Designer and Workflow appplication
+* In order to connect the Designer to a Database Server you need to configure the System DNS connections inside the *C:\Windows\SysWOW64\odbcad32.exe* 32 Bits ODBC program. 
 * In order to connect the Workflow to a Database Server you need to configure the System DNS connections inside the *C:\Windows\System32\odbcad32.exe* 64 Bits ODBC program. 
 
 ## Add a Relational connection from the Workflow Designer

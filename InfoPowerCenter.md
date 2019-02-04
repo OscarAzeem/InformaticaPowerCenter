@@ -78,17 +78,30 @@ From the first time, no one ODBC connection is configured, in order to configure
     3. In the System Properties window, click on the Advanced tab, then click the Environment Variables button near the bottom of that tab.
     4. In the Environment Variables window (pictured below), highlight the Path variable in the "System variables" section and click the Edit button. Add or modify the path lines with the paths you want the computer to access. Each different directory is separated with a semicolon
 * So by default the Variable **PATH¨** It's configured to **READ** first the path: 
-    1.  C:\Windows\System32, in which is **stored** the  **odbcad32.exe** program for the [**64 bits** System DNS connections](https://kb.informatica.com/howto/6/Pages/2/157292.aspx "ODBC System DNS"), in other words, everytime you hit the Designer - Source Analyzer - Import from Database - ... - ODBC data source Administrator - System DNS, the **odbcad32.exe** for 64 bits is launched. But as you could remember, the Informatica Power Center Clientes are build under a **32 Bits** architecture, therefore in order to **connect** to a MySQL server with an **32 bits** ODBC driver, the System DNS connection should be declared within the **odbcad32.exe** for **32 bits**
-    2. After reading the *C:\Windows\System32* path, the **PATH** reads the *C:\Windows\SysWOW64* path, which stores the **odbcad32.exe** progam for **32 bits** ODBC connection. 
+    1.  C:\Windows\System32, in which it's **stored** the  **odbcad32.exe** program for the [**64 bits** System DNS connections](https://kb.informatica.com/howto/6/Pages/2/157292.aspx "ODBC System DNS"), in other words, everytime you hit the Designer - Source Analyzer - Import from Database - ... - ODBC data source Administrator - System DNS, the **odbcad32.exe** for 64 bits is launched. But as you could remember, the Informatica Power Center Clientes are build under a **32 Bits** architecture, therefore in order to **connect** to a MySQL server with a **32 bits** ODBC driver, the System DNS connection should be declared within the **odbcad32.exe** for **32 bits**
+    2. After reading the *C:\Windows\System32* path, the **PATH** reads the *C:\Windows\SysWOW64* path, which stores the **odbcad32.exe** progam for **32 bits** ODBC connection. (yeah, i know, this is so mixed up, because Windows)
     3. You should change the order of the **PATH** path, to read first the:  *C:\Windows\SysWOW64\odbcad32.exe* ODBC program and then *C:\Windows\System32\odbcad32.exe* ODBC program
 * Being adjusted the order *PATH*, you need to install the 32 Bits ODBC driver on both the Client and Server side, from the [Mysql connector page](https://dev.mysql.com/downloads/connector/odbc/ "Mysql Connectors") downloading the **32 BITS** and MSI installer. 
 * Installed the 32 Bits Mysql ODBC Driver, the Informatica Power Center will ask for a modification for the *C:\Informatica\9.6.1\clients\PowerCenterClient\client\bin\powrmart.ini* file, in which you should add the following lines below the *[ODBCDLL]* section: 
     * [ODBCDLL]
-    
-    MySQL=PMODBC.DLL
+
+     MySQL=PMODBC.DLL
 
 * Once configured the powrmart.ini file and installed the 32 bits MySQL drivers, it's neccesary to add the new *System DNS data sources* whithin the ODBC Data Source Administrator Program (*C:\Windows\SysWOW64\odbcad32.exe*). 
 * Doing the steps mentioned before now we are able to stablish a 32 bits ODBC connection between the Informatica Power Center clients and the MySQL server. 
+
+## Solving the errror: The specified DSN contains an architecture mismatch between the Driver and Application (ODBC related error)
+* A database server if 64 bits, can use a 32 bits or 64 bits ODBC connection.   
+* The Informatica Power Center **clients** (Designer, Workflow, Monitor) are applications under a 32 bits arquitecture. 
+* The Informatica Power Center **Server** (Integration Services, Repository) are applications under a 64 bits arquitecture. 
+* When using the **Designer** application to get the esquema definition, the client uses a **32 bits ODBC** connection in order to **connect** to the database server, in other words, when trying to get an esquema definition the Designer follows the next steps:
+    * Designer -> 32 Bits ODBC connection -> System Dns on ODBC Data Source Administrator -> Database server
+* When using the **Workflow** application in order to run a SQL statement inside a Session(Mapping) the workflow application **despite of** being a 32 Bits application, connects first to the Informatica Power Center Server which is a **64 Bits application**; the **IPC server it's the one who actually executes a SQL statement.** In other words, when running a Workflow the Workflow application executes the following steps:
+    * Workflow -> Informatica Power Center Server -> **64 Bits** ODBC connection -> Database Server
+
+## Connection considerations
+* In order to connect the Designer to a Database Server you need to configure the System DNS connections inside the C:\Windows\SysWOW64\odbcad32.exe* 32 Bits ODBC program. 
+* In order to connect the Workflow to a Database Server you need to configure the System DNS connections inside the *C:\Windows\System32\odbcad32.exe* 64 Bits ODBC program. 
 
 ## Add a Relational connection from the Workflow Designer
 1. Open the Informatica Workflow Designer

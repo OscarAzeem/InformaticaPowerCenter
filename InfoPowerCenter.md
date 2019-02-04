@@ -94,7 +94,7 @@ From the first time, no one ODBC connection is configured, in order to configure
 * A database server can use a 32 bits or 64 bits ODBC connection.   
 * The Informatica Power Center **Clients** (Designer, Workflow, Monitor) are applications under a 32 bits architecture. 
 * The Informatica Power Center **Server** (Integration Services, Repository) is an application under a 64 bits architecture. 
-* When using the **Designer** application to get a esquema definition, the client uses a **32 bits ODBC** connection to **connect** to the database server, in other words, when trying to get an esquema definition the Designer follows the next steps:
+* When using the **Designer** application to get an esquema definition, the client uses a **32 bits ODBC** connection to **connect** to the database server, therefore, when trying to get an esquema definition the Designer follows the next steps:
     * Designer -> 32 Bits ODBC connection -> System Dns on ODBC Data Source Administrator -> Database server
 * When using the **Workflow** application in order to run a SQL statement inside a Session(Mapping) the workflow application **despite of** being a 32 Bits application, connects first to the Informatica Power Center Server which is a **64 Bits application**; the **IPC server it's the one who actually executes a SQL statement.** In other words, when running a workflow the Workflow application executes the following steps:
     * Workflow -> Informatica Power Center Server -> **64 Bits** ODBC connection -> Database Server

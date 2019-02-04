@@ -91,7 +91,7 @@ From the first time, no one ODBC connection is configured, in order to configure
 * Doing the steps mentioned before now we are able to stablish a 32 bits ODBC connection between the Informatica Power Center clients and the MySQL server. 
 
 ## Solving: The specified DSN contains an architecture mismatch between the Driver and Application (ODBC related error)
-* A database server if 64 bits, can use a 32 bits or 64 bits ODBC connection.   
+* A database server can use a 32 bits or 64 bits ODBC connection.   
 * The Informatica Power Center **Clients** (Designer, Workflow, Monitor) are applications under a 32 bits architecture. 
 * The Informatica Power Center **Server** (Integration Services, Repository) it's an application under a 64 bits architecture. 
 * When using the **Designer** application to get a esquema definition, the client uses a **32 bits ODBC** connection to **connect** to the database server, in other words, when trying to get an esquema definition the Designer follows the next steps:

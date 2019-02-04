@@ -104,9 +104,27 @@ From the first time, no one ODBC connection is configured, in order to configure
 * In order to connect the Workflow to a Database Server you need to configure the System DNS connections inside the *C:\Windows\System32\odbcad32.exe* 64 Bits ODBC Data Source Administrator program. 
 
 ## Add a Relational connection from the Workflow Designer
-1. Open the Informatica Workflow Designer
-2. Select the type of connection (where it's the source and target tables)
-3. clic on New
-4. Give a Name and complete the user and password requirements.
-5. In connection write the **SERVICE_NAME** as the tnsnames.ora file, **XE** in this case. 
+The steps below are different for a Workflow - MySQL and Workflow - Oracle, connection. 
 
+### Workflow - ORACLE
+1. Open the Informatica Workflow Designer
+2. Connections -> Relational -> New ..
+3. In the Select Subtype window:
+    1. If you already have an **Oracle Native driver**, in the Subtype window: 
+        * New -> Oracle
+        * Choose a name, user name and password
+        * In the Conect String box, you should write the **Service Name** declared inside the **C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN\tnsnames.ora** file (*XE* in this case)
+    2. If you are goin to use and **ODBC connection** in the Subtype window:
+        * New -> ODBC
+        * Choose a name, user name and password
+        * In the Conect String box, you should write the **System Data Sources in the System DNS tab whithin the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
+        * Notice this System Data Source Name is also stored in the *C:\Windows\ODBC.INI* file
+
+### Workflow - MySQL
+1. Open the Informatica Workflow Designer
+2. Connections -> Relational -> New ..
+3. For the MySQL connection you can only choose an **ODBC connection** in the Subtype window:
+    * New -> ODBC
+    * Choose a name, user name and password
+    * In the Conect String box, you should write the **System Data Sources in the System DNS tab whithin the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
+    * Notice this System Data Source Name is also stored in the *C:\Windows\ODBC.INI* file

@@ -90,18 +90,18 @@ From the first time, no one ODBC connection is configured, in order to configure
 * Once configured the powrmart.ini file and installed the 32 bits MySQL drivers, it's neccesary to add the new *System DNS data sources* whithin the ODBC Data Source Administrator Program (*C:\Windows\SysWOW64\odbcad32.exe*). 
 * Doing the steps mentioned before now we are able to stablish a 32 bits ODBC connection between the Informatica Power Center clients and the MySQL server. 
 
-## Solving the errror: The specified DSN contains an architecture mismatch between the Driver and Application (ODBC related error)
+## Solving: The specified DSN contains an architecture mismatch between the Driver and Application (ODBC related error)
 * A database server if 64 bits, can use a 32 bits or 64 bits ODBC connection.   
 * The Informatica Power Center **Clients** (Designer, Workflow, Monitor) are applications under a 32 bits architecture. 
-* The Informatica Power Center **Server** (Integration Services, Repository) are applications under a 64 bits architecture. 
-* When using the **Designer** application to get the esquema definition, the client uses a **32 bits ODBC** connection in order to **connect** to the database server, in other words, when trying to get an esquema definition the Designer follows the next steps:
+* The Informatica Power Center **Server** (Integration Services, Repository) it's an application under a 64 bits architecture. 
+* When using the **Designer** application to get a esquema definition, the client uses a **32 bits ODBC** connection to **connect** to the database server, in other words, when trying to get an esquema definition the Designer follows the next steps:
     * Designer -> 32 Bits ODBC connection -> System Dns on ODBC Data Source Administrator -> Database server
-* When using the **Workflow** application in order to run a SQL statement inside a Session(Mapping) the workflow application **despite of** being a 32 Bits application, connects first to the Informatica Power Center Server which is a **64 Bits application**; the **IPC server it's the one who actually executes a SQL statement.** In other words, when running a Workflow the Workflow application executes the following steps:
+* When using the **Workflow** application in order to run a SQL statement inside a Session(Mapping) the workflow application **despite of** being a 32 Bits application, connects first to the Informatica Power Center Server which is a **64 Bits application**; the **IPC server it's the one who actually executes a SQL statement.** In other words, when running a workflow the Workflow application executes the following steps:
     * Workflow -> Informatica Power Center Server -> **64 Bits** ODBC connection -> Database Server
 
 ## Connection considerations for Designer and Workflow appplication
-* In order to connect the Designer to a Database Server you need to configure the System DNS connections inside the *C:\Windows\SysWOW64\odbcad32.exe* 32 Bits ODBC program. 
-* In order to connect the Workflow to a Database Server you need to configure the System DNS connections inside the *C:\Windows\System32\odbcad32.exe* 64 Bits ODBC program. 
+* In order to connect the Designer to a Database Server you need to configure the System DNS connections inside the *C:\Windows\SysWOW64\odbcad32.exe* 32 Bits ODBC Data Source Administrator program. 
+* In order to connect the Workflow to a Database Server you need to configure the System DNS connections inside the *C:\Windows\System32\odbcad32.exe* 64 Bits ODBC Data Source Administrator program. 
 
 ## Add a Relational connection from the Workflow Designer
 1. Open the Informatica Workflow Designer

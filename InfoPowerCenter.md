@@ -92,8 +92,8 @@ From the first time, no one ODBC connection is configured, in order to configure
 
 ## Solving the errror: The specified DSN contains an architecture mismatch between the Driver and Application (ODBC related error)
 * A database server if 64 bits, can use a 32 bits or 64 bits ODBC connection.   
-* The Informatica Power Center **clients** (Designer, Workflow, Monitor) are applications under a 32 bits arquitecture. 
-* The Informatica Power Center **Server** (Integration Services, Repository) are applications under a 64 bits arquitecture. 
+* The Informatica Power Center **Clients** (Designer, Workflow, Monitor) are applications under a 32 bits architecture. 
+* The Informatica Power Center **Server** (Integration Services, Repository) are applications under a 64 bits architecture. 
 * When using the **Designer** application to get the esquema definition, the client uses a **32 bits ODBC** connection in order to **connect** to the database server, in other words, when trying to get an esquema definition the Designer follows the next steps:
     * Designer -> 32 Bits ODBC connection -> System Dns on ODBC Data Source Administrator -> Database server
 * When using the **Workflow** application in order to run a SQL statement inside a Session(Mapping) the workflow application **despite of** being a 32 Bits application, connects first to the Informatica Power Center Server which is a **64 Bits application**; the **IPC server it's the one who actually executes a SQL statement.** In other words, when running a Workflow the Workflow application executes the following steps:

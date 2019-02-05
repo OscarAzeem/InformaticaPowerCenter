@@ -159,3 +159,50 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 ## Read from different source files 
 ### Importing from a flat file
 * 
+
+
+# Explaining Errors
+* Everytime an error occurs in the session of the kind: Target Failed Rows or Total Transformation Errors, if some bada data is encountered, the IPC server doesn't do a commit, instead the server does a rollback. [Rollback instead of commit, info](https://network.informatica.com/thread/4051 "Rollback on Bad rows Informatica Power center server")
+* The Informatica Power Center serves has something called **commit interval**, option which does a commit every N-Rows inserted. 
+    * The *commit interval* option can be found inside the Wofkflow -> Edit tasks -> Properties tab -> General Options Section -> Commit interval
+    * By default the commit interval option is "10000" rows. 
+    * Note: A commit interval is the no. of rows at which the intergration service will apply the commit to the target. *Increasing the commit interval is considered as one of the target side performance optimization technique.*
+
+
+
+## Session log
+* In the Task Details section: 
+    * Target Failed Rows: 
+        * Total Rows that are rejected due to a table definition on the target
+        * This error can be 'fixed' 
+    * Total Transformation Errors:
+        * Total Rows that are rejected due to an illegal transformation operation (a sum of a string + char)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

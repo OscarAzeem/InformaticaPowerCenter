@@ -155,4 +155,7 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 
 ## Grant permissions to read a folder
 * [INFO about granting permissons to read](https://network.informatica.com/thread/18072 "info about granting permissons to read")
+
+## Read from different source files 
+### Importing from a flat file
 * 

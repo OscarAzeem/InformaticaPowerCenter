@@ -13,6 +13,18 @@
     * Pass: mastermysqldatabase
     * Dba user: Administrator
     * Pass Dba user: Administrator
+* Dominios IPC en Oracle
+    * Usuario: Repositorio2_Metadatos
+    * Password: repositorio
+    * Usuario: Dominio2_Metadatos
+    * Password: dominio
+    * Servicio de Integración
+        * Usuario: Administrator
+        * Password: Administrator
+    * IPC
+        * Domain Name: Domain_ApeironIPC
+        * Gateway Host: 127.0.0.1 (localhost)
+        * Gateway Port: 6005
 
 # Basic Configuration
 * Some basic information about the basics
@@ -110,7 +122,7 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 1. Open the Informatica Workflow Designer
 2. Connections -> Relational -> New ..
 3. In the Select Subtype window:
-    1. If you already have an **Oracle Native driver**, in the Subtype window: 
+    1. If you already have an **Oracle Native ODBC driver**, in the Subtype window: 
         * New -> Oracle
         * Choose a name, user name and password
         * In the Conect String box, you should write the **Service Name** declared inside the **C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN\tnsnames.ora** file (*XE* in this case)
@@ -128,3 +140,15 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
     * Choose a name, user name and password
     * In the Conect String box, you should write the **System Data Sources in the System DNS tab whithin the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
     * Notice this System Data Source Name is also stored in the *C:\Windows\ODBC.INI* file
+
+
+# Administrator configuration
+
+## How to Configure a Repository Service
+* Windows Button -> Informatica 9.6.1 -> Server -> Informatica Administrator Home
+* User: Administrator - Password: Administrator
+* On the Serices and Nodes tab, select actions 
+* Select: PowerCenter Repository Service
+* Choose the RepositoryDatabase (already created in the DBMS server)
+* Check the box: No content exists under specified connection string.
+* Check the box: Enable version control (A versioned ...)

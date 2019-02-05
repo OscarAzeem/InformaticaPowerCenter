@@ -152,3 +152,7 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 * Choose the RepositoryDatabase (already created in the DBMS server)
 * Check the box: No content exists under specified connection string.
 * Check the box: Enable version control (A versioned ...)
+
+## Grant permissions to read a folder
+* [INFO about granting permissons to read](https://network.informatica.com/thread/18072 "info about granting permissons to read")
+* 

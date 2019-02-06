@@ -157,7 +157,11 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 * [INFO about granting permissons to read](https://network.informatica.com/thread/18072 "info about granting permissons to read")
 
 ## Read from different source files 
+* When importing a Target Definition from the Designer, the **Datatype** column it's already considered for inserting each row; if the Datatype column is an integer even if it's already defined in the database as a Varchar, the IPC server will mantain the Datatype from the Target Definition. This will lead to the error: Data conversion overflow/error. 
+
+
 ### Importing from a flat file
+* When defining the values from the CSV, **each row should match the datatype defined by the Target Definition**, if not, the Workflow will try to do a CAST and eventually will lead to an error type. 
 * 
 
 

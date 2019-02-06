@@ -31,7 +31,7 @@
 
 ## Import A source File
 * ***Note:*** When importing a source file, you just import the **SOURCE/TARGET DEFINITION** Not the real connection. 
-* The real connection it's configured whithin the Informatica Workflow Designer. See the section: **Add a New Database Connection**
+* The real connection it's configured within the Informatica Workflow Designer. See the section: **Add a New Database Connection**
 * Informatica power center can import files from: 
     * Database: Microsoft SQL Server, Oracle, SAP HANA, Sybase, Teradata etc.
     * File: flat files
@@ -99,7 +99,7 @@ From the first time, no one ODBC connection is configured, in order to configure
 
      MySQL=PMODBC.DLL
 
-* Once configured the powrmart.ini file and installed the 32 bits MySQL drivers, it's neccesary to add the new *System DNS data sources* whithin the ODBC Data Source Administrator Program (*C:\Windows\SysWOW64\odbcad32.exe*). 
+* Once configured the powrmart.ini file and installed the 32 bits MySQL drivers, it's neccesary to add the new *System DNS data sources* within the ODBC Data Source Administrator Program (*C:\Windows\SysWOW64\odbcad32.exe*). 
 * Doing the steps mentioned before now we are able to stablish a 32 bits ODBC connection between the Informatica Power Center clients and the MySQL server. 
 
 ## Solving: The specified DSN contains an architecture mismatch between the Driver and Application (ODBC related error)
@@ -129,7 +129,7 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
     2. If you are goin to use and **ODBC connection** in the Subtype window:
         * New -> ODBC
         * Choose a name, user name and password
-        * In the Conect String box, you should write the **System Data Sources in the System DNS tab whithin the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
+        * In the Conect String box, you should write the **System Data Sources in the System DNS tab within the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
         * Notice this System Data Source Name is also stored in the *C:\Windows\ODBC.INI* file
 
 ### Workflow - MySQL
@@ -138,7 +138,7 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 3. For the MySQL connection you can only choose an **ODBC connection** in the Subtype window:
     * New -> ODBC
     * Choose a name, user name and password
-    * In the Conect String box, you should write the **System Data Sources in the System DNS tab whithin the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
+    * In the Conect String box, you should write the **System Data Sources in the System DNS tab within the ODBC Data Source Administrator program** of the following path *C:\Windows\System32\odbcad32.exe*. 
     * Notice this System Data Source Name is also stored in the *C:\Windows\ODBC.INI* file
 
 
@@ -160,19 +160,12 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 * When importing a Target Definition from the Designer, the **Datatype** column it's already considered for inserting each row; if the Datatype column is an integer even if it's already defined in the database as a Varchar, the IPC server will mantain the Datatype from the Target Definition. This will lead to the error: Data conversion overflow/error. 
 
 
-### Importing from a flat file
-* When defining the values from the CSV, **each row should match the datatype defined by the Target Definition**, if not, the Workflow will try to do a CAST and eventually will lead to an error type. 
-* 
-
-
 # Explaining Errors
 * Everytime an error occurs in the session of the kind: Target Failed Rows or Total Transformation Errors, if some bada data is encountered, the IPC server doesn't do a commit, instead the server does a rollback. [Rollback instead of commit, info](https://network.informatica.com/thread/4051 "Rollback on Bad rows Informatica Power center server")
 * The Informatica Power Center serves has something called **commit interval**, option which does a commit every N-Rows inserted. 
     * The *commit interval* option can be found inside the Wofkflow -> Edit tasks -> Properties tab -> General Options Section -> Commit interval
     * By default the commit interval option is "10000" rows. 
     * Note: A commit interval is the no. of rows at which the intergration service will apply the commit to the target. *Increasing the commit interval is considered as one of the target side performance optimization technique.*
-
-
 
 ## Session log
 * In the Task Details section: 
@@ -181,6 +174,48 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
         * This error can be 'fixed' 
     * Total Transformation Errors:
         * Total Rows that are rejected due to an illegal transformation operation (a sum of a string + char)
+
+
+# Importing data to the IPC client
+* **General Considerations**: 
+    * Everytime a schema definition is imported by the Designer, such name will be used when executing the Query from the IPC server, therefore, if the source/target schema definition name it's modified the Monitor will show the error: **WRT_8164 Error loading into source/target** because the IPC server can't find the schema. 
+        * In order to solve this error yo should explicity declare the *Table Name Prefix*  and *Target Table Name* from the session options within the Workflow. 
+* **Deleting duplicates (all columns) from the Source**
+    * If it's neccesary to remove duplicate rows from the Source table, one option to erase such rows it's to **check the *distinct* box** inside the Designer -> Source Qualifier -> Edit transformations -> Properties -> Select distinct 
+* 
+
+
+# Informatica Power Center Transformations 
+Section about each one of the all IPC transformations
+
+## Source Qualifier
+* The source Qualifier is added automatically everytime a Source drag to the *Mapping designer* 
+
+
+### Importing from a flat file
+* When defining the values from the CSV, **each row should match the datatype defined by the Target Definition**, if not, the Workflow will try to do a CAST and eventually will lead to an error type. 
+* .........................
+
+
+# Session Parameters
+
+
+## Show the default Informatica Session (in the Workflow) Parameters
+* The informatica default parameters will be available in the **Informatica Administrator**. To navigate do the following:
+1. Login to the Informatica Administrator web link
+2. Select the Integration Service in the Domain Navigator(on the left)
+3. Select the Processes tab (on the right)
+* By default: 
+    * $PMRootDir: C:\Informatica\9.6.1\server\infa_shared
+    * $PMSessionLogDir: $PMRootDir/SessLogs
+    * $PMBadFileDir: $PMRootDir/BadFiles
+    * $PMCacheDir: $PMRootDir/Cache
+    * $PMTargetFileDir: $PMRootDir/TgtFiles
+    * $PMSourceFileDir: $PMRootDir/SrcFiles
+    * $PMExtProcDir: ./ExtProc
+    * $PMWorkflowLogDir: $PMRootDir/WorkflowLogs
+    * $PMLookuFileDir: $PMRootDir/LkpFiles
+    * $PMStorageDir: $PMRootDir/Storage
 
 
 

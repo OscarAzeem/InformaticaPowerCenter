@@ -189,7 +189,18 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
 Section about each one of the all IPC transformations
 
 ## Source Qualifier
-* The source Qualifier is added automatically everytime a Source drag to the *Mapping designer* 
+* The source Qualifier (SQ) is added automatically everytime a Source is drag to the *Mapping designer* 
+* The main objective of the SQ is to **CREATE** a **SELECT** statement, could be a *single* statement without any restriction such as: *SELECT * FROM TABLE* or a *compound* statement with many restrictions such as: *SELECT DISTINCT * FROM TABLE WHERE CONDITION1=VALUE*
+* The SQ advanced options could be defined at Mapping (Designer) level or at Session (Workflow) level.
+* The SQ has the following options:
+    * **Source Filter**: Enables to add a Filter (*WHERE* clause) 
+        * Note: If a filter is added there is no need to add the **WHERE** clause, it's already added by the SQ transformacion, therefore the Source Filter will be as follows: 
+            * LOCATION_TEST.ModifiedDate>='2018-01-01'
+    * **Select Distinct**: Does a select statement will all the columns from the source. It's used in order to remove duplicate rows.
+    * **Pre SQL**: enables to execute a SQL statement in the Source at Database Server level, before any session event.
+        * Practical example: to add text to the columns or some *CASE* statement as a kind of view. 
+    * **Post SQL**: enables to execute a SQL statement in the Source at Database Server level, after all session events 
+        * Practical example: truncate the source table. 
 
 
 ### Importing from a flat file

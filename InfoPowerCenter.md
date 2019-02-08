@@ -325,7 +325,9 @@ Section about each one of the all IPC transformations
 * archivos con ancho fijo (opcion especial en el workflow)
     * Opción  [Fixed width flat file source](https://marketplace.informatica.com/mpresources/docs/Userguide_3121.pdf "fixed with advanced option") 
     * Problemas con el fin del archivo? Ya sea por la [terminacion de linea en windows o en unix](https://stackoverflow.com/questions/3569997/how-to-find-out-line-endings-in-a-text-file "terminacion de liena windows unix")
+    * Ejercicio fin de linea declarado con la opción fixed with flat file source y sin ella debido a la terminación de caracter de ipc
 * archivo binario (normalizer)
+* Output the monitor inserted rows in a flat file
 * 
 
 

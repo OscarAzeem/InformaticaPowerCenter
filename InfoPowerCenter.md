@@ -313,6 +313,10 @@ Section about each one of the all IPC transformations
     * $s_sesssion_name.Status=SUCCEEDED
 
 
+# Control Versions Check IN and Check OUT
+* 
+
+
 # Propuestas de ejercicios
 * Opción comando para ejecutar código en Python
 * cambiar en una cadena el pipe | por algún otro caracter
@@ -322,13 +326,14 @@ Section about each one of the all IPC transformations
 * dblink
 * Agregar Stored procedure
 * ejemplos IF, DECODE
-* archivos con ancho fijo (opcion especial en el workflow)
+* archivos con ancho fijo (opcion especial en el workflow) (problema con el control de caracter de fin de linea)
     * Opción  [Fixed width flat file source](https://marketplace.informatica.com/mpresources/docs/Userguide_3121.pdf "fixed with advanced option") 
     * Problemas con el fin del archivo? Ya sea por la [terminacion de linea en windows o en unix](https://stackoverflow.com/questions/3569997/how-to-find-out-line-endings-in-a-text-file "terminacion de liena windows unix")
+    * [Genial y detallada información sobre el fin de linea](https://www.networkworld.com/article/3107972/linux/windows-vs-unix-those-pesky-line-terminators.html)
     * Ejercicio fin de linea declarado con la opción fixed with flat file source y sin ella debido a la terminación de caracter de ipc
 * archivo binario (normalizer)
 * Output the monitor inserted rows in a flat file
-* 
+* Permisos entre los usuarios y porque unos ven y otros no el workflow (check in check out), además de que unos tienen permisos de ejecución y otros solo de lectura. (caso B)
 
 
 # Questions

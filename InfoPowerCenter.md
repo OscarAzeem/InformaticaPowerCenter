@@ -213,8 +213,88 @@ Section about each one of the all IPC transformations
 * .........................
 
 
-# Session Parameters
+# Pararameters (.par) File
+* The parameters file it's **stored and used by default** in: $PMSourceFileDir: $PMRootDir/SrcFiles.
+    * If you want to change the parameter file by default, it could be [done](https://stackoverflow.com/questions/9294445/informatica-issue-parameter-file "Paramter File Information") following the path:
+        * Workflow > Edit > Properties > Parameter file Name
+* In the parameters file, the **database password** in order to connect to the server could be stored in *"plain text"* but it's already encrypted, the IPC server desencrypt the password to stablish the connection to the DBMS server.
 
+## Parameters File Syntax
+* The parameters file should have the following syntax in order to be read correctly by the IPC server.
+* Every parameter value has a ***scope*** started by square brackets [] and ending with a return key, therefore exists two *scopes*:
+    1. Global Scope with Global parameters.
+    2. Session Scope with Session parameters.
+* **Global parameters:** Global parameters which affects every session are declared at the beggining of the .par file. 
+    * Usually are constituted by the User and Password values for the ODBC connection
+        * Example: 
+
+        [Global]
+
+        $PMBadFileDir=
+
+        $PMSourceFileDir=
+
+        $Param_DB_User=hr
+
+        $Param_DB_Password=hr
+
+* **Session Parameters:** Session parameters affects **only** the designed mapping (from the Designer), Workflow and session.
+    * Session parameters syntax beggin as follows: 
+        * [ipc_folder.WF:workflowf_name.ST:session_name]
+    * Example: 
+
+        * [carpeta_desarrollos.WF:wf_lee_mysql_inserta_oracle.ST:s_lee_mysql_inserta_oracle]
+
+        $$Usuario_Esquema_Oracle=hr
+        
+        $$Password_Usuario_Esquema_Oracle=hr
+
+        $$Usuario_Esquema_Mysql=adventureworks
+
+        $$Password_Usuario_Esquema_Mysql=adventureworks
+
+        $$Parametro_version=1.1
+
+        $$Parametro_fecha_filtro=2018-12-01
+
+* **Full Example**, Global and two session parameters.
+
+    * **[Global]**
+
+    $PMBadFileDir=/temporal/dir
+
+    $PMSourceFileDir=/infa_shared/source
+
+    $Param_DB_User=hr
+
+    $Param_DB_Password=hr
+
+    **[carpeta_desarrollos.WF:wf_lee_mysql_inserta_oracle.ST:s_lee_mysql_inserta_oracle]**
+
+    $$Usuario_Esquema_Oracle=hr
+
+    $$Password_Usuario_Esquema_Oracle=hr
+
+    $$Usuario_Esquema_Mysql=adventureworks
+
+    $$Password_Usuario_Esquema_Mysql=adventureworks
+
+    $$Parametro_version=1.1
+
+    $$Parametro_fecha_filtro=2018-12-01
+
+    **[carpeta_desarrollos.WF:wf_borra_tabla_mysql_leida.ST:s_borra_tabla_mysql_leida]**
+
+    $$Usuario_Esquema_Mysql=adventureworks
+
+    $$Password_Usuario_Esquema_Mysql=adventureworks
+
+    $$Parametro_fecha_borrado_tabla=2018-12-01
+
+    $$Parametro_tabla_a_borrar=departamentos
+
+
+# Session Parameters (Workflow properties)
 
 ## Show the default Informatica Session (in the Workflow) Parameters
 * The informatica default parameters will be available in the **Informatica Administrator**. To navigate do the following:
@@ -233,13 +313,37 @@ Section about each one of the all IPC transformations
     * $PMLookuFileDir: $PMRootDir/LkpFiles
     * $PMStorageDir: $PMRootDir/Storage
 
+## Session Conditionals
+* A session can be conditioned to follow a next session if the first session succeed or fail, the options to configure such option are described below: 
+    * $s_sesssion_name.Status=SUCCEEDED
 
 
+# Control Versions Check IN and Check OUT
+* 
 
 
+# Propuestas de ejercicios
+* Opción comando para ejecutar código en Python
+* cambiar en una cadena el pipe | por algún otro caracter
+* particiones
+* duplicados
+* archivo source / flat, con diferentes valores y agrupar n cantidad de targets por esa n cantidad de valore en la salida
+* dblink
+* Agregar Stored procedure
+* ejemplos IF, DECODE
+* archivos con ancho fijo (opcion especial en el workflow) (problema con el control de caracter de fin de linea)
+    * Opción  [Fixed width flat file source](https://marketplace.informatica.com/mpresources/docs/Userguide_3121.pdf "fixed with advanced option") 
+    * Problemas con el fin del archivo? Ya sea por la [terminacion de linea en windows o en unix](https://stackoverflow.com/questions/3569997/how-to-find-out-line-endings-in-a-text-file "terminacion de liena windows unix")
+    * [Genial y detallada información sobre el fin de linea](https://www.networkworld.com/article/3107972/linux/windows-vs-unix-those-pesky-line-terminators.html)
+    * Ejercicio fin de linea declarado con la opción fixed with flat file source y sin ella debido a la terminación de caracter de ipc
+* archivo binario (normalizer)
+* Output the monitor inserted rows in a flat file
+* Permisos entre los usuarios y porque unos ven y otros no el workflow (check in check out), además de que unos tienen permisos de ejecución y otros solo de lectura. (caso B)
 
 
-
+# Questions
+* The ODBC connection it's stored on the server side or in the client side?
+    * Proposition: In the server side, once saved in the odbcad.exe and when the client connects to to server can read all the ODBC connections. 
 
 
 

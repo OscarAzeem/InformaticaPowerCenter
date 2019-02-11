@@ -25,6 +25,11 @@
         * Domain Name: Domain_ApeironIPC
         * Gateway Host: 127.0.0.1 (localhost)
         * Gateway Port: 6005
+        * Usuarios: 
+                * Usuario: UsuarioIPCCreado 
+                * Password: usuario
+                * Usuario: AzeemLinkedIn
+                * Password: usuario 
 
 # Basic Configuration
 * Some basic information about the basics

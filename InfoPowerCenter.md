@@ -224,6 +224,9 @@ Section about each one of the all IPC transformations
     * Due to an **ilegal** value in the source. 
         * Declared as a *integer* but containing as plain text a *NULL* value
 
+### Target Load Type
+* If your target table has indexes then use the Normal type otherwise, Bulk type. Remember, **the bulk type will insert the data faster than Normal but it does not work on indexed tables.**
+
 
 ### Importing from a flat file
 * When defining the values from the CSV, **each row should match the datatype defined by the Target Definition**, if not, the Workflow will try to do a CAST and eventually will lead to an error type. 
@@ -316,7 +319,8 @@ Section about each one of the all IPC transformations
 * Log options: 
     * By default every workflow is created in a binary format (.bin) which opens only with the Monitor import log option. The binary log can be converted with the unix command **$strings** which outputs the binary text in an ASCII format. 
     * The workflow can be saved as a plain text file by clicking on the Properties Tab whithin the Session options inside the General Options section on **"Write Backward Compatible Session Log File".**
-
+* $Source connection value and $Target connection Value
+    * The actual value is used to stablish ODBC relational connections, but it's **ignored** when a DB Connection is **declared from the Mapping tab**
 
 # Session Parameters (Workflow properties)
 
@@ -363,6 +367,7 @@ Section about each one of the all IPC transformations
 * archivo binario (normalizer)
 * Output the monitor inserted rows in a flat file
 * Permisos entre los usuarios y porque unos ven y otros no el workflow (check in check out), además de que unos tienen permisos de ejecución y otros solo de lectura. (caso B)
+* Problemas con los indices con la opcion de normal y bulk. If your target table has indexes then use the Normal type otherwise, Bulk type. Remember, **the bulk type will insert the data faster than Normal but it does not work on indexed tables.**
 
 
 # Questions
@@ -371,9 +376,7 @@ Section about each one of the all IPC transformations
 
 
 
-
-
-
+* [pushdown](https://dwbi.org/etl/informatica/162-pushdown-optimization-in-informatica "push")
 
 
 

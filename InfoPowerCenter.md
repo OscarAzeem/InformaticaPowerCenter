@@ -33,6 +33,8 @@
 
 # Basic Configuration
 * Some basic information about the basics
+* Table structure normativity: 
+    * G_[TGT|SRC]_[ORIGINAL_NAME]_[FINAL_NAME]
 
 ## Import A source File
 * ***Note:*** When importing a source file, you just import the **SOURCE/TARGET DEFINITION** Not the real connection. 
@@ -204,13 +206,28 @@ Section about each one of the all IPC transformations
     * **Select Distinct**: Does a select statement will all the columns from the source. It's used in order to remove duplicate rows.
     * **Pre SQL**: enables to execute a SQL statement in the Source at Database Server level, before any session event.
         * Practical example: to add text to the columns or some *CASE* statement as a kind of view. 
+            * for Pre SQL we will use DELETE / TRUNCATE.
+            * Pre-sql used for Dropping indexes before loading Data.
     * **Post SQL**: enables to execute a SQL statement in the Source at Database Server level, after all session events 
         * Practical example: truncate the source table. 
+            * Post SQL will use DELETE/UPDATE.
+            * Post-sql used to re-create indexes ofter loading the data into Target system..
+
+## Target Definition
+### SYSTIMESTAMP()
+* Every time a record is inserted into the table with the function SYSTIMESTAMP() the server will call **only once** such function, therefore every row will have the **same** TIMESTAMP(). 
+    * Even if varying the commit interval, or the bulk option in the target, the results will be the same. 
+
+### Problems with the Flat files Source
+* When reading a flat file and the records are inserted into a target table, two types of errors can be encountered. 
+    * Due to the target data types
+    * Due to an **ilegal** value in the source. 
+        * Declared as a *integer* but containing as plain text a *NULL* value
 
 
 ### Importing from a flat file
 * When defining the values from the CSV, **each row should match the datatype defined by the Target Definition**, if not, the Workflow will try to do a CAST and eventually will lead to an error type. 
-* .........................
+
 
 
 # Pararameters (.par) File
@@ -292,6 +309,13 @@ Section about each one of the all IPC transformations
     $$Parametro_fecha_borrado_tabla=2018-12-01
 
     $$Parametro_tabla_a_borrar=departamentos
+
+# Session Options
+* Reusable sessions: 
+    * When creating a session from the "Edit Tasks" option whithin the Informatica PowerCenter Workflow it'll be created always by default as reusable. 
+* Log options: 
+    * By default every workflow is created in a binary format (.bin) which opens only with the Monitor import log option. The binary log can be converted with the unix command **$strings** which outputs the binary text in an ASCII format. 
+    * The workflow can be saved as a plain text file by clicking on the Properties Tab whithin the Session options inside the General Options section on **"Write Backward Compatible Session Log File".**
 
 
 # Session Parameters (Workflow properties)

@@ -211,7 +211,23 @@ Section about each one of the all IPC transformations
     * **Post SQL**: enables to execute a SQL statement in the Source at Database Server level, after all session events 
         * Practical example: truncate the source table. 
             * Post SQL will use DELETE/UPDATE.
-            * Post-sql used to re-create indexes ofter loading the data into Target system..
+            * Post-sql used to re-create indexes ofter loading the data into Target system.
+
+## Importing from a COBOL file
+* [Cobol Properties](https://www.wisdomjobs.com/e-university/informatica-tutorial-195/configuring-cobol-source-definitions-4550.html "Cobol file IPC properties")
+* Every time a Source Definition from a database table or Flat File is dragged to the Mapping Designer automatically is imported a Source Qualifier transformation, for **COBOL** files automatically is imported a **Normalizer transformation**
+* A cobol file is READ in a **Non line sequantial file format**
+* A cobol file has the name **VSAM** in the source definition header. 
+* A cobol file has their own [data type definitions](https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.1.0/com.ibm.zos.v2r1.ceea300/ceea30015.htm "Cobol data type definitions"), called **PICTURE** whithin the normalizer which join the source definition. 
+    * A **CHAR** data type definition it's acompany by a **DISPLAY** value in the *USAGE* column, with a **PICTURE**: X(n_integer_length_of_chars)
+        * A cobol char data type with just one character will be declared as a **PICTURE:** X, without any aggregated number or parenthesis. 
+    * A **NUMBER** (*integer without decimals*) it's acompany by a **COMP-3** value in the *USAGE* column, with a **PICTURE**: 9(n_integer_length)
+    * A **NUMBER** (*number with decimals*) it's acompany by a **COMP-3** value in the *USAGE* column, with a **PICTURE**: S9(n_integer_full_integer_length)V9(n_integer_decimals_length)
+        * Remember that the IPC server when it comes to a **DECIMAL** value has two parameters, **PRECISION** and **SCALE**
+            * **PRECISION**, is the full length of the number **WITH** decimals
+            * **SCALE**, is the decimals length. 
+        * Practical Example: 
+            * A cobol decimal number with a picture S9(15)V9(2) will be equivalent to a PRECISION=17 and a SCALE=2 in a IPC number datatype.
 
 ## Target Definition
 ### SYSTIMESTAMP()
@@ -313,6 +329,20 @@ Section about each one of the all IPC transformations
 
     $$Parametro_tabla_a_borrar=departamentos
 
+
+# Informatica Predefined Variables
+* Informatica has predefined and build in variables. Each subject appears in the IPC help. 
+
+## Predefined Workflow Variables  
+* **Task-specific variables**: 
+    * The Workflow Manager provides a set of task-specific variables for each task in the workflow. 
+    * Use task-specific variables in a link condition to control the path the Integration Service takes when running the workflow. 
+    * The Workflow Manager lists task-specific variables under the task name in the Expression Editor. 
+
+
+
+
+
 # Session Options
 * Reusable sessions: 
     * When creating a session from the "Edit Tasks" option whithin the Informatica PowerCenter Workflow it'll be created always by default as reusable. 
@@ -350,6 +380,75 @@ Section about each one of the all IPC transformations
 * 
 
 
+# Functions and Expressions
+
+## IIF
+* Just a simple IF
+* **General Sintaxis:**
+    * IIF(CONDITION(PORT),
+    
+    CONDITION_SUCCEEDED,
+    
+    CONDITION_FAILED
+    
+    )
+
+### Practical Examples:
+#### Evaluating if a number ISNULL
+    * IIF(ISNULL(PORT),
+    
+    0,
+    
+    TO_DECIMAL(PORT))
+
+## DECODE
+* A secuence of nested ifs.
+* **General Sintaxis:**
+    * DECODE([TRUE|FALSE],
+
+    IF_CONDITION1(PORT_TO_EVALUATE_THE_IF_CONDITION1), RESOLVE_THE_CONDITION1,
+
+    IF_CONDITION2(PORT_TO_EVALUATE_THE_IF_CONDITION2), RESOLVE_THE_CONDITION2,
+
+    [DEFAULT_VALUE|NULL]
+
+    )
+
+### Practical Examples: 
+#### Date of the Form: YYYYMMDD vs DDMMYYYY
+    * DECODE(TRUE,
+    
+    IS_DATE(INPUT1, 'YYYYMMDD'), TO_DATE(INPUT1, 'YYYYMMDD'),
+    
+    IS_DATE(INPUT1, 'DDMMYYYY'), TO_DATE(INPUT1, 'DDMMYYYY'),
+    
+    NULL
+    
+    )
+
+#### Combining and evaluating date and hours from a DATE
+    * DECODE(TRUE,
+    
+    IS_DATE(PORT_DATE || PORT_HOUR, 'YYYYMMDDHH24.MI.SS'), TO_DATE(PORT_DATE || PORT_HOUR, 'YYYYMMDDHH24.MI.SS'),
+    
+    IS_DATE(PORT_DATE || PORT_HOUR, 'DDMMYYYYHH24.MI.SS'), TO_DATE(PORT_DATE || PORT_HOUR, 'DDMMYYYYHH24.MI.SS'),
+    
+    NULL)
+
+## RTRIM
+* Removes blanks or characters from the end of a string. 
+    * Their functioing relys on the UNICODE and ASCII codification
+* **General Sintaxis:**
+    * RTRIM(PORT)
+### Practical example:
+* Removing both blank spaces, at the beginning and in the end
+    * LTRIM(RTRIM(PORT))
+    
+
+
+
+
+
 # Propuestas de ejercicios
 * Opción comando para ejecutar código en Python
 * cambiar en una cadena el pipe | por algún otro caracter
@@ -368,7 +467,8 @@ Section about each one of the all IPC transformations
 * Output the monitor inserted rows in a flat file
 * Permisos entre los usuarios y porque unos ven y otros no el workflow (check in check out), además de que unos tienen permisos de ejecución y otros solo de lectura. (caso B)
 * Problemas con los indices con la opcion de normal y bulk. If your target table has indexes then use the Normal type otherwise, Bulk type. Remember, **the bulk type will insert the data faster than Normal but it does not work on indexed tables.**
-
+    * hice el ejercicio y no dio error, por qué? debió dar? mi fuente solo es una página web, revisar
+* Cobol files, importar.
 
 # Questions
 * The ODBC connection it's stored on the server side or in the client side?
@@ -377,10 +477,14 @@ Section about each one of the all IPC transformations
 
 
 * [pushdown](https://dwbi.org/etl/informatica/162-pushdown-optimization-in-informatica "push")
+* associated source definitions in this mapping?
+* IIF(isnull(NU_VERSION),1,
+    IIF(GET_DATE_PART(SYSDATE,'MM') = GET_DATE_PART(FH_INFORMACION_MAX,'MM') ,NU_VERSION+1,1))
 
-
-
-
+* variables
+    * Workflow a mapa: pre session
+    * mapa a workflow: post session y además setvariable
+    
 
 
 

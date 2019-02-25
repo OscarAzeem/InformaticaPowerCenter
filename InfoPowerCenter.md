@@ -484,6 +484,7 @@ Section about each one of the all IPC transformations
 * variables
     * Workflow a mapa: pre session
     * mapa a workflow: post session y además setvariable
+    * [Info about the built in variables](https://network.informatica.com/thread/18589)
     
 
 

@@ -453,7 +453,7 @@ Section about each one of the all IPC transformations
 * Opción comando para ejecutar código en Python
 * cambiar en una cadena el pipe | por algún otro caracter
 * particiones
-* duplicados
+* duplicados borrar de una base de datos, query. 
 * archivo source / flat, con diferentes valores y agrupar n cantidad de targets por esa n cantidad de valore en la salida
 * dblink
 * Agregar Stored procedure

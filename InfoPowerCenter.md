@@ -371,6 +371,9 @@ Section about each one of the all IPC transformations
     * $PMLookuFileDir: $PMRootDir/LkpFiles
     * $PMStorageDir: $PMRootDir/Storage
 
+## Using a Parameter .par variable inside a Mapping or Workflow
+* 
+
 ## Session Conditionals
 * A session can be conditioned to follow a next session if the first session succeed or fail, the options to configure such option are described below: 
     * $s_sesssion_name.Status=SUCCEEDED
@@ -381,6 +384,11 @@ Section about each one of the all IPC transformations
 
 
 # Functions and Expressions
+
+## Parameter To_DATE
+* Receiving a parameter date, but it doesn't have the rigth form. 
+* Practical example: 
+    * FEC_CIERRE = TO_DATE($$Fecha,'YYYY-MM-DD')
 
 ## IIF
 * Just a simple IF

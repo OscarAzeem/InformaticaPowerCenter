@@ -372,7 +372,10 @@ Section about each one of the all IPC transformations
     * $PMStorageDir: $PMRootDir/Storage
 
 ## Using a Parameter .par variable inside a Mapping or Workflow
-* 
+* Every time you want to use a parameter variable (which's already declared inside the .par file) you need to declare it at the desired level. For example, if you want to use a .par variable at the Mapping level, it should be declared at such level (inside the Parameters and variables option), in another case, if you want to use a .par variable at the Workflow level, you need to declare it in the Edit Workflow options.
+* **If you don't explicitly declare the .par variable inside at the Mapping or Workflow level, the IPC server would be incapable of use it.**
+* **Moreover, the .par file path should be declared at the Workflow level.**
+
 
 ## Session Conditionals
 * A session can be conditioned to follow a next session if the first session succeed or fail, the options to configure such option are described below: 
@@ -497,10 +500,25 @@ Section about each one of the all IPC transformations
 
 
 
-
-
-
-
+# Notas sobre el pasaporte. lol. 
+* Programar cita: 
+    * llamar al teléfono: 01 800 80 10 773
+* Horarios: En las Delegaciones de la Secretaría de 08:00 a 15:00 horas de lunes a viernes.
+    * enito Juárez, Cuajimalpa y **Cuauhtémoc**, ubicadas en la Ciudad de México, adicionalmente prestan servicio sábados y domingos de 08:00 a 15:00 horas.
+1. Documentos necesarios: 
+    1. Acreditación de nacionalidad
+        * Copia certificada del acta de nacimiento expedida por la oficina del Registro Civil mexicano*
+        * Original y copia
+    2. Acreditación de identidad
+        * Credencial para votar del Instituto Nacional Electoral (INE/IFE)
+        * Original y Copia
+    3. Fotografía. 
+        * A partir del 1° de julio de 2018, el requisito de la entrega de fotografía para el trámite de pasaporte se suprime
+        * Sin fotografía porque no aplica ningún criterio. 
+    4. Coomprobante de pago de derechos. 
+        * Costos: Monto de derechos 2019 para la expedición de pasaporte con vigencia de 10 años
+        *   $2,670.00 mxn
+        * [Pagina del comprobante de derechos](https://www.gob.mx/sre/acciones-y-programas/opciones-para-realizar-el-pago-de-pasaporte "pago derechos pasaporte")
 
 
 

@@ -456,8 +456,44 @@ Section about each one of the all IPC transformations
     * LTRIM(RTRIM(PORT))
     
 
+## Concatening Values
+* In order to concat values, you can use the same SQL operator, double pipes: ||
+* Example:
+```
+PORT1||PORT2
+```
 
+## Using the SUBSTR function
+* The SUBSTR function receives three pararameters
+* Example:
+```
+SUBSTR(PORT_NAME,BEGGINING,END)
+```
+* Practical example:
+```
+SUBSTR(FECHA,1,8)
+```
 
+## Using the TO_DATE function
+* The date has to be between quotes, 
+* Example: 
+```
+TO_DATE('PORT_NAME','YYYYMMDD')
+```
+* Practical Example:
+```
+FEC_CORTE=TO_DATE('$$m_var_FECHA','YYYYMMDD')
+``` 
+
+## Filtering by NULL values
+* Testing if a value is null, example:
+``` 
+ISNULL(PORT_NAME) 
+``` 
+* Testing if a value is not null, example:
+``` 
+NOT ISNULL(PORT_NAME) 
+``` 
 
 
 # Propuestas de ejercicios

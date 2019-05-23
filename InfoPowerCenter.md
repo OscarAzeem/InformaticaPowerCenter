@@ -149,6 +149,31 @@ The steps below are different for a Workflow - MySQL and Workflow - Oracle, conn
     * Notice this System Data Source Name is also stored in the *C:\Windows\ODBC.INI* file
 
 
+# MultiLoad and Fastload - Informatica and Teradata
+* You need to create a connection Loader type from the Informatica PowerCenter Workflow:
+    * Workflow -> Connections -> Loader
+    * Select: New
+        * Type: Teradata Mload External Loader
+        * Username, password
+        * Declare an StringName
+* Inside the Workflow Multiload Session, in the Mapping properties, inside the Target we should declare it like follows:
+    * *File Writer*  in the *Writers* section
+    * *Loader* in the *Connections* section
+    * *Table Name Prefix* the Table Name prefix
+    * *Target Table Name* The Target table name
+* Inside the *Output file Directory*, IPC-Teradata will create two control files:
+    1. $OutputFileName.out.ctl
+    2. $OutputFileName.out.ldrlog
+* IPC-Teradata will create four temporary Tables:
+    1. [Target_SCHEMA].ML_[Target_Table_Name]
+    2. [Target_SCHEMA].ET_[Target_Table_Name]
+    3. [Target_SCHEMA].UV_[Target_Table_Name]
+    4. [Target_SCHEMA].WT_[Target_Table_Name] 
+
+## Common Problems Using Mload and FastLoad
+* [Worktable is missing for table1 during MLoad restart](https://kb.informatica.com/solution/21/Pages/138872.aspx "Worktable error")
+    * When some error is encountered proccessing the Multiload, the table will remain locked, to solve this problem, the mload lock should be released in such table or the table be dropped. 
+
 # Administrator configuration
 
 ## How to Configure a Repository Service

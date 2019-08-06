@@ -520,6 +520,39 @@ ISNULL(PORT_NAME)
 NOT ISNULL(PORT_NAME) 
 ``` 
 
+## [Getting Pre-Value column](https://stackoverflow.com/questions/14090025/informatica-prev-column-value-display "Pre Value column")
+* The Integration Service evaluates ports in the *following order*:
+* First, higher hierarchy, last, lower hierarchy
+1. **Input ports**:
+    * The Integration Service *evaluates all input ports first* since *they do not depend on any other ports*. 
+    * Therefore, *you can create input ports in any order*. Since they do not reference other ports, the Integration Service does not order input ports.
+2. **Variable ports**:
+    *  Variable ports *can reference* **input** ports and **variable** ports, but *not* **output** ports. 
+    * *Because* variable ports can *reference input ports*, the **Integration Service evaluates variable ports after input ports**
+    * Likewise, since variables can reference other variables, **the display order for variable ports is the same as the order in which the Integration Service evaluates each variable.**
+    * For example, if you calculate the original value of a building and then adjust for depreciation, you might create the original value calculation as a variable port. *This variable port needs to appear before the port that adjusts for depreciation.*
+3. **Output ports**:
+    *  Because output ports can reference input ports and variable ports, *the Integration Service evaluates output ports last*. The display order for output ports does not matter since output ports cannot reference other output ports. Be sure output ports display at the bottom of the list of ports.
+* **Practical Example**:
+```sql
+PORT             EXPRESSION
+in_sal           N/A
+v_previous_sal   v_current_sal
+v_current_sal    in_sal
+out_sal          v_previous_sal
+```
+* **Real life Example**:
+```sql
+CODIGO=PARTE_1||PARTE_2                            -       V
+VARIABLE_RESETEO=IIF(CODIGO  != VARIABLE_ANTERIOR,1,0)       -       V
+VARIABLE_ANTERIOR=CODIGO                                    -       V
+VARIABLE_CONTADOR=IIF(VARIABLE_RESETEO=1,1, VARIABLE_CONTADOR +1)              -       V
+CONTADOR=VARIABLE_CONTADOR                                               -       O
+```
+
+
+
+
 
 # Propuestas de ejercicios
 * Opción comando para ejecutar código en Python

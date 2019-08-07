@@ -543,11 +543,11 @@ out_sal          v_previous_sal
 ```
 * **Real life Example**:
 ```sql
-CODIGO=PARTE_1||PARTE_2                            -       V
-VARIABLE_RESETEO=IIF(CODIGO  != VARIABLE_ANTERIOR,1,0)       -       V
-VARIABLE_ANTERIOR=CODIGO                                    -       V
-VARIABLE_CONTADOR=IIF(VARIABLE_RESETEO=1,1, VARIABLE_CONTADOR +1)              -       V
-CONTADOR=VARIABLE_CONTADOR                                               -       O
+CODIGO=PARTE_1||PARTE_2                                              Variable port
+VARIABLE_RESETEO=IIF(CODIGO  != VARIABLE_ANTERIOR,1,0)               Variable port
+VARIABLE_ANTERIOR=CODIGO                                             Variable port
+VARIABLE_CONTADOR=IIF(VARIABLE_RESETEO=1,1, VARIABLE_CONTADOR +1)    Variable port
+CONTADOR=VARIABLE_CONTADOR                                           Ouput port 
 ```
 
 

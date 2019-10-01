@@ -510,6 +510,15 @@ TO_DATE('PORT_NAME','YYYYMMDD')
 FEC_CORTE=TO_DATE('$$m_var_FECHA','YYYYMMDD')
 ``` 
 
+## [Substracting DATES](https://forgetcode.com/informatica/1424-add-months-in-informatica "Substracting date")
+* Example:
+```python
+ADD_TO_DATE( DATE_SHIPPED, 'MM', -1)
+```
+| Date shipped | Return Value |
+| ----| ----| 
+| Jan 1 1997 12:00:30AM | Dec 01 1996 12:00:30AM |
+
 ## Filtering by NULL values
 * Testing if a value is null, example:
 ``` 
@@ -520,7 +529,7 @@ ISNULL(PORT_NAME)
 NOT ISNULL(PORT_NAME) 
 ``` 
 
-## [Getting Pre-Value column](https://stackoverflow.com/questions/14090025/informatica-prev-column-value-display "Pre Value column")
+## [Getting Pre-Value column (one record before)](https://stackoverflow.com/questions/14090025/informatica-prev-column-value-display "Pre Value column")
 * The Integration Service evaluates ports in the *following order*:
 * First, higher hierarchy, last, lower hierarchy
 1. **Input ports**:
